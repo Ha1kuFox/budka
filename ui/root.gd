@@ -19,13 +19,10 @@ const COLOR_EXIT: Color = Color(1.0, 0.35, 0.35)
 @onready var _mic_button: Button = %MicButton
 @onready var _speaker_button: Button = %SpeakerButton
 @onready var _broadcast_button: Button = %BroadcastButton
-@onready var _main_menu: Control = $SafeZone/MainMenu
-@onready var _room: Control = $SafeZone/Room
 @onready var _screen_stream: ScreenStream = $ScreenStream
 @onready var _remote_streams: RemoteStreams = $RemoteStreams
 @onready var _hover_panel: HoverPanel = $HoverPanel
 @onready var _speaking_border: Panel = %SpeakingBorder
-@onready var _attribution: Label = $Attribution
 @onready var _bottom_gradient: ColorRect = %BottomGradient
 
 var _users: Array = []
@@ -129,28 +126,18 @@ func get_selected_user() -> Dictionary:
 
 
 func _setup_network() -> void:
-	var connect_button: Button = $SafeZone/MainMenu/Buttons/ConnectionRow/ConnectButton
-	var host_button: Button = $SafeZone/MainMenu/Buttons/HostButton
-	var uid_input: LineEdit = $SafeZone/MainMenu/Buttons/ConnectionRow/UIDInput
 
 	NetworkManager.joined.connect(_on_network_joined)
 	NetworkManager.left.connect(_on_network_left)
 	NetworkManager.users_changed.connect(_on_network_users)
 	NetworkManager.stream_access_unit.connect(_on_network_stream)
 	NetworkManager.error.connect(_on_network_error)
-	connect_button.pressed.connect(func() -> void: NetworkManager.join(uid_input.text))
-	host_button.pressed.connect(func() -> void: NetworkManager.host())
 
-	if NetworkManager.connected:
-		_show_room()
-	else:
-		_show_main_menu()
 
 
 func _on_network_joined() -> void:
 	L.info("room: joined local_id=%d" % NetworkManager.local_id)
 	host_user_id = NetworkManager.local_id
-	_show_room()
 
 
 func _on_network_left() -> void:
@@ -159,7 +146,6 @@ func _on_network_left() -> void:
 	_remote_streams.clear()
 	_selected_id = -1
 	set_users([])
-	_show_main_menu()
 
 
 func _on_network_users(users: Array) -> void:
@@ -344,20 +330,6 @@ func _update_speaking_border() -> void:
 	var talking: bool = _selected_id != -1 and _selected_preview.visible and bool(_talking.get(_selected_id, false))
 	_speaking_border.call("set_speaking", talking)
 
-
-func _show_room() -> void:
-	L.info("room: enter room")
-	_main_menu.visible = false
-	_attribution.visible = false
-	_room.visible = true
-	_refresh_view()
-
-
-func _show_main_menu() -> void:
-	L.info("room: show main menu")
-	_room.visible = false
-	_main_menu.visible = true
-	_attribution.visible = true
 
 
 func _texture_for(user_id: int) -> Texture2D:

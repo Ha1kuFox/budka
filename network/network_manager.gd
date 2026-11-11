@@ -65,6 +65,21 @@ func join(address: String) -> void:
 		error.emit("Could not connect: %s" % error_string(result))
 
 
+func get_room_code() -> String:
+	var steam_id: int = int(_con.call("get_steam_id"))
+	if steam_id > 0:
+		return str(steam_id)
+	return str(local_id)
+
+
+func is_host() -> bool:
+	return connected and multiplayer.is_server()
+
+
+func is_client() -> bool:
+	return connected and not multiplayer.is_server()
+
+
 func leave() -> void:
 	L.info("net: leave requested")
 	if _con != null and _con.is_active():

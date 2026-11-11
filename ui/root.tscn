@@ -1,28 +1,31 @@
 [gd_scene format=3 uid="uid://djj61yb2tn545"]
 
-[ext_resource type="Script" uid="uid://0b4d2ol2tqk1" path="res://root.gd" id="1_root"]
-[ext_resource type="Theme" uid="uid://dei8sbc774but" path="res://ui/theme_dark.tres" id="2_theme_dark"]
-[ext_resource type="Script" uid="uid://v13sn7pvctwu" path="res://stream/screen_stream.gd" id="3_stream"]
-[ext_resource type="Theme" uid="uid://cmnuruejcmonu" path="res://ui/theme_light.tres" id="3_theme_light"]
-[ext_resource type="Script" uid="uid://bj0pbswcminx1" path="res://stream/screen_capture.gd" id="4_capture"]
-[ext_resource type="Script" uid="uid://cbumfsqcxm4p8" path="res://stream/h264_encoder.gd" id="5_encoder"]
-[ext_resource type="Script" uid="uid://dngp8gdvreieq" path="res://stream/h264_decoder.gd" id="6_decoder"]
-[ext_resource type="Script" uid="uid://dp4u2jbcj2xdv" path="res://ui/theme_applier.gd" id="7_theme_applier"]
-[ext_resource type="Texture2D" uid="uid://bnqhx8bg4fk7u" path="res://assets/icons/mic_shadow.png" id="8_mic_shadow"]
-[ext_resource type="Texture2D" uid="uid://b4sll5houb5xe" path="res://assets/icons/sound_full_shadow.png" id="9_sound_shadow"]
-[ext_resource type="Texture2D" uid="uid://cyfymygciumdk" path="res://assets/icons/broadcast_shadow.png" id="10_broadcast_shadow"]
-[ext_resource type="Texture2D" uid="uid://cawo1fmnk3oqq" path="res://assets/icons/exit_shadow.png" id="11_exit_shadow"]
-[ext_resource type="Texture2D" uid="uid://0f8qejrb2qis" path="res://assets/icons/settings.svg" id="19_settings"]
-[ext_resource type="Script" uid="uid://wvabckaadjw4" path="res://ui/users_grid.gd" id="12_users_grid"]
-[ext_resource type="Script" uid="uid://bq5egnmn67ek4" path="res://network/remote_streams.gd" id="13_remote_streams"]
-[ext_resource type="Script" uid="uid://dq8qs6xpdthpx" path="res://ui/hover_panel.gd" id="14_hover_panel"]
-[ext_resource type="Script" uid="uid://dpnxjxviu4hb0" path="res://ui/settings_panel.gd" id="15_settings_panel"]
-[ext_resource type="Script" uid="uid://dq72trf5xl8l5" path="res://ui/speaking_border.gd" id="16_speaking_border"]
-[ext_resource type="Shader" uid="uid://b8r76f22r3tl8" path="res://assets/shaders/bottom_gradient.gdshader" id="17_bottom_gradient"]
-[ext_resource type="Script" uid="uid://dskiovkcvdodw" path="res://ui/bottom_gradient.gd" id="18_bottom_gradient"]
+[ext_resource type="Theme" uid="uid://dei8sbc774but" path="res://ui/theme_dark.tres" id="1_w7qd7"]
+[ext_resource type="Script" uid="uid://0b4d2ol2tqk1" path="res://ui/root.gd" id="2_gmiy5"]
+[ext_resource type="Script" uid="uid://dq72trf5xl8l5" path="res://ui/speaking_border.gd" id="3_g1kha"]
+[ext_resource type="Shader" uid="uid://b8r76f22r3tl8" path="res://assets/shaders/bottom_gradient.gdshader" id="4_fkis5"]
+[ext_resource type="Script" uid="uid://dskiovkcvdodw" path="res://ui/bottom_gradient.gd" id="5_0alh5"]
+[ext_resource type="Script" uid="uid://wvabckaadjw4" path="res://ui/users_grid.gd" id="6_a4rsv"]
+[ext_resource type="Texture2D" uid="uid://bnqhx8bg4fk7u" path="res://assets/icons/mic_shadow.png" id="7_7hb03"]
+[ext_resource type="Texture2D" uid="uid://b4sll5houb5xe" path="res://assets/icons/sound_full_shadow.png" id="8_p6ymw"]
+[ext_resource type="Texture2D" uid="uid://cyfymygciumdk" path="res://assets/icons/broadcast_shadow.png" id="9_5aymv"]
+[ext_resource type="Texture2D" uid="uid://0f8qejrb2qis" path="res://assets/icons/settings.svg" id="10_v1eat"]
+[ext_resource type="Texture2D" uid="uid://cawo1fmnk3oqq" path="res://assets/icons/exit_shadow.png" id="11_s7frh"]
+[ext_resource type="Script" uid="uid://v13sn7pvctwu" path="res://stream/screen_stream.gd" id="12_j0tb4"]
+[ext_resource type="Script" uid="uid://bj0pbswcminx1" path="res://stream/screen_capture.gd" id="13_wwbmv"]
+[ext_resource type="Script" uid="uid://cbumfsqcxm4p8" path="res://stream/h264_encoder.gd" id="14_xexp0"]
+[ext_resource type="Script" uid="uid://dngp8gdvreieq" path="res://stream/h264_decoder.gd" id="15_nkpbl"]
+[ext_resource type="Script" uid="uid://dp4u2jbcj2xdv" path="res://ui/theme_applier.gd" id="16_qj5ir"]
+[ext_resource type="Theme" uid="uid://cmnuruejcmonu" path="res://ui/theme_light.tres" id="17_bioh5"]
+[ext_resource type="Script" uid="uid://bq5egnmn67ek4" path="res://network/remote_streams.gd" id="18_3gmte"]
+[ext_resource type="Script" uid="uid://dq8qs6xpdthpx" path="res://ui/hover_panel.gd" id="19_3awa8"]
+[ext_resource type="Script" uid="uid://dpnxjxviu4hb0" path="res://ui/settings_panel.gd" id="20_esejc"]
+[ext_resource type="Script" uid="uid://criu3hep55evi" path="res://ui/main_menu.gd" id="23_main_menu"]
+[ext_resource type="Script" uid="uid://cpelhal5q132t" path="res://ui/host_wait.gd" id="24_host_wait"]
+[ext_resource type="Script" uid="uid://yu5n50gws4cb" path="res://ui/screen_router.gd" id="25_screen_router"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bottom_gradient"]
-shader = ExtResource("17_bottom_gradient")
+shader = ExtResource("4_fkis5")
 shader_parameter/opacity = 0.9
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flat"]
@@ -40,9 +43,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_theme_dark")
-script = ExtResource("1_root")
-demo_users = Array[String](["Хост", "Друг 1", "Друг 2"])
+theme = ExtResource("1_w7qd7")
+script = ExtResource("2_gmiy5")
 
 [node name="BG" type="ColorRect" parent="." unique_id=806281188]
 layout_mode = 1
@@ -68,6 +70,7 @@ theme_override_constants/margin_bottom = 0
 [node name="MainMenu" type="CenterContainer" parent="SafeZone" unique_id=400082937]
 visible = false
 layout_mode = 2
+script = ExtResource("23_main_menu")
 
 [node name="Buttons" type="VBoxContainer" parent="SafeZone/MainMenu" unique_id=2070716396]
 custom_minimum_size = Vector2(400, 100)
@@ -78,22 +81,26 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="UIDInput" type="LineEdit" parent="SafeZone/MainMenu/Buttons/ConnectionRow" unique_id=1047004562]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Steam UID"
 
 [node name="ConnectButton" type="Button" parent="SafeZone/MainMenu/Buttons/ConnectionRow" unique_id=253947502]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 text = "CONNECT"
 
 [node name="HostButton" type="Button" parent="SafeZone/MainMenu/Buttons" unique_id=1431847941]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "HOST"
 
 [node name="Room" type="VBoxContainer" parent="SafeZone" unique_id=1244439845]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 
@@ -151,7 +158,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
-script = ExtResource("16_speaking_border")
+script = ExtResource("3_g1kha")
 
 [node name="GradientLayer" type="Control" parent="SafeZone/Room/Content" unique_id=1011937080]
 layout_mode = 2
@@ -173,7 +180,7 @@ offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-script = ExtResource("18_bottom_gradient")
+script = ExtResource("5_0alh5")
 opacity = 0.3
 
 [node name="UsersOverlay" type="Control" parent="SafeZone/Room/Content" unique_id=1011937082]
@@ -184,9 +191,10 @@ mouse_filter = 2
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 32.0
-mouse_filter = 0
+grow_horizontal = 2
 
 [node name="UsersList" type="PanelContainer" parent="SafeZone/Room/Content/UsersOverlay" unique_id=1011937013 node_paths=PackedStringArray("_grid")]
 unique_name_in_owner = true
@@ -197,7 +205,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("12_users_grid")
+script = ExtResource("6_a4rsv")
 _grid = NodePath("Margin/Grid")
 
 [node name="Margin" type="MarginContainer" parent="SafeZone/Room/Content/UsersOverlay/UsersList" unique_id=1011937014]
@@ -278,7 +286,7 @@ text = "—"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TileStream" type="TextureRect" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView"]
+[node name="TileStream" type="TextureRect" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=1108210232]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -290,7 +298,7 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TalkingBorder" type="Panel" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile"]
+[node name="TalkingBorder" type="Panel" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile" unique_id=1699370482]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -299,7 +307,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("16_speaking_border")
+script = ExtResource("3_g1kha")
 
 [node name="ControlsOverlay" type="CenterContainer" parent="SafeZone/Room/Content" unique_id=1011937068]
 layout_mode = 2
@@ -321,7 +329,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
 toggle_mode = true
-icon = ExtResource("8_mic_shadow")
+icon = ExtResource("7_7hb03")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -336,7 +344,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
 toggle_mode = true
-icon = ExtResource("9_sound_shadow")
+icon = ExtResource("8_p6ymw")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -351,7 +359,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
 toggle_mode = true
-icon = ExtResource("10_broadcast_shadow")
+icon = ExtResource("9_5aymv")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -365,7 +373,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_settings")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_settings")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_settings")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_settings")
-icon = ExtResource("19_settings")
+icon = ExtResource("10_v1eat")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -379,33 +387,85 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
-icon = ExtResource("11_exit_shadow")
+icon = ExtResource("11_s7frh")
 flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="HostWait" type="CenterContainer" parent="SafeZone" unique_id=1011937110]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+script = ExtResource("24_host_wait")
+
+[node name="Panel" type="PanelContainer" parent="SafeZone/HostWait" unique_id=1011937111]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="SafeZone/HostWait/Panel" unique_id=1011937112]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="SafeZone/HostWait/Panel/Margin" unique_id=1011937113]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="SafeZone/HostWait/Panel/Margin/Box" unique_id=1011937114]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "Комната создана"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="SafeZone/HostWait/Panel/Margin/Box" unique_id=1011937115]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Отправьте этот код для соединения"
+horizontal_alignment = 1
+
+[node name="HostCode" type="Label" parent="SafeZone/HostWait/Panel/Margin/Box" unique_id=1011937116]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"Title"
+theme_override_font_sizes/font_size = 24
+text = "—"
+horizontal_alignment = 1
+
+[node name="CopyCodeButton" type="Button" parent="SafeZone/HostWait/Panel/Margin/Box" unique_id=1011937117]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Скопировать"
+
+[node name="CancelHostButton" type="Button" parent="SafeZone/HostWait/Panel/Margin/Box" unique_id=1011937119]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Выйти"
+
 [node name="ScreenStream" type="Node" parent="." unique_id=1011937049]
-script = ExtResource("3_stream")
+script = ExtResource("12_j0tb4")
 
 [node name="Capture" type="Node" parent="ScreenStream" unique_id=1011937050]
-script = ExtResource("4_capture")
+script = ExtResource("13_wwbmv")
 
 [node name="DesktopCaster" type="DesktopCaster" parent="ScreenStream/Capture" unique_id=1011937051]
 
 [node name="Encoder" type="Node" parent="ScreenStream" unique_id=1011937052]
-script = ExtResource("5_encoder")
+script = ExtResource("14_xexp0")
 
 [node name="Decoder" type="Node" parent="ScreenStream" unique_id=1011937053]
-script = ExtResource("6_decoder")
+script = ExtResource("15_nkpbl")
 
 [node name="ThemeApplier" type="Node" parent="." unique_id=1011937054 node_paths=PackedStringArray("target")]
-script = ExtResource("7_theme_applier")
-dark_theme = ExtResource("2_theme_dark")
-light_theme = ExtResource("3_theme_light")
+script = ExtResource("16_qj5ir")
+dark_theme = ExtResource("1_w7qd7")
+light_theme = ExtResource("17_bioh5")
 target = NodePath("..")
 
 [node name="RemoteStreams" type="Node" parent="." unique_id=1011937075]
-script = ExtResource("13_remote_streams")
+script = ExtResource("18_3gmte")
 
 [node name="HoverPanel" type="Control" parent="." unique_id=1011937076 node_paths=PackedStringArray("users_list", "hover_zone", "grid")]
 layout_mode = 1
@@ -415,10 +475,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("14_hover_panel")
+script = ExtResource("19_3awa8")
 users_list = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersList")
 hover_zone = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersHoverZone")
 grid = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersList")
+
+[node name="HideTimer" type="Timer" parent="HoverPanel" unique_id=1011937105]
+unique_name_in_owner = true
+wait_time = 0.25
+one_shot = true
+
+[node name="WatchTimer" type="Timer" parent="HoverPanel" unique_id=1011937106]
+unique_name_in_owner = true
+wait_time = 0.12
 
 [node name="SettingsPanel" type="Control" parent="." unique_id=1011937077]
 layout_mode = 1
@@ -428,22 +497,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("15_settings_panel")
-
-[node name="Attribution" type="Label" parent="." unique_id=1011937079]
-visible = false
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 18.0
-offset_top = -34.0
-offset_right = 420.0
-offset_bottom = -12.0
-grow_vertical = 0
-theme_type_variation = &"Caption"
-text = "Логотип: Flaticon.com"
-vertical_alignment = 1
+script = ExtResource("20_esejc")
 
 [node name="SettingsOverlay" type="CenterContainer" parent="SettingsPanel" unique_id=1011937085]
 unique_name_in_owner = true
@@ -548,7 +602,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = -40.0
 max_value = 6.0
-step = 1.0
 
 [node name="VolumeValue" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box/VolumeRow" unique_id=1011937103]
 unique_name_in_owner = true
@@ -561,11 +614,24 @@ horizontal_alignment = 2
 layout_mode = 2
 text = "Закрыть"
 
-[node name="HideTimer" type="Timer" parent="HoverPanel" unique_id=1011937105]
-unique_name_in_owner = true
-one_shot = true
-wait_time = 0.25
+[node name="Attribution" type="Label" parent="." unique_id=1011937079]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -34.0
+offset_right = 420.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_type_variation = &"Caption"
+text = "Логотип: Flaticon.com"
+vertical_alignment = 1
 
-[node name="WatchTimer" type="Timer" parent="HoverPanel" unique_id=1011937106]
-unique_name_in_owner = true
-wait_time = 0.12
+[node name="ScreenRouter" type="Node" parent="." unique_id=1011937120 node_paths=PackedStringArray("main_menu", "room", "host_wait", "attribution")]
+script = ExtResource("25_screen_router")
+main_menu = NodePath("../SafeZone/MainMenu")
+room = NodePath("../SafeZone/Room")
+host_wait = NodePath("../SafeZone/HostWait")
+attribution = NodePath("../Attribution")

@@ -1,0 +1,321 @@
+[gd_scene format=3 uid="uid://uqjasn5ktnq2"]
+
+[ext_resource type="Script" uid="uid://dq72trf5xl8l5" path="res://ui/room/speaking_border.gd" id="1_m3ht5"]
+[ext_resource type="Shader" uid="uid://b8r76f22r3tl8" path="res://assets/shaders/bottom_gradient.gdshader" id="2_2jk8x"]
+[ext_resource type="Script" uid="uid://dskiovkcvdodw" path="res://ui/room/bottom_gradient.gd" id="3_f7t6v"]
+[ext_resource type="Script" uid="uid://wvabckaadjw4" path="res://ui/room/users_grid.gd" id="4_25ak8"]
+[ext_resource type="Script" path="res://ui/room/room.gd" id="10_room"]
+[ext_resource type="Script" path="res://ui/settings/settings_button.gd" id="11_settings_button"]
+[ext_resource type="Script" path="res://ui/room/toolbox.gd" id="12_toolbox"]
+[ext_resource type="Texture2D" uid="uid://bnqhx8bg4fk7u" path="res://assets/icons/mic_shadow.png" id="5_x5uv7"]
+[ext_resource type="Texture2D" uid="uid://b4sll5houb5xe" path="res://assets/icons/sound_full_shadow.png" id="6_oakdu"]
+[ext_resource type="Texture2D" uid="uid://cyfymygciumdk" path="res://assets/icons/broadcast_shadow.png" id="7_6rptx"]
+[ext_resource type="Texture2D" uid="uid://0f8qejrb2qis" path="res://assets/icons/settings.svg" id="8_aomdx"]
+[ext_resource type="Texture2D" uid="uid://cawo1fmnk3oqq" path="res://assets/icons/exit_shadow.png" id="9_uj1sl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bottom_gradient"]
+shader = ExtResource("2_2jk8x")
+shader_parameter/opacity = 0.9
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flat"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_settings"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+
+[node name="Room" type="VBoxContainer" unique_id=882109344]
+visible = false
+script = ExtResource("10_room")
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="." unique_id=1810763219]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="ContentBox" type="VBoxContainer" parent="Content" unique_id=1602441412]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SelectedPreview" type="PanelContainer" parent="Content/ContentBox" unique_id=271581845]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SelectedMargin" type="MarginContainer" parent="Content/ContentBox/SelectedPreview" unique_id=1472920376]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="SelectedVBox" type="VBoxContainer" parent="Content/ContentBox/SelectedPreview/SelectedMargin" unique_id=179523785]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="Content/ContentBox/SelectedPreview/SelectedMargin/SelectedVBox" unique_id=267001004]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StreamFrame" type="Control" parent="Content/ContentBox/SelectedPreview/SelectedMargin/SelectedVBox" unique_id=1067919129]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelectedStream" type="TextureRect" parent="Content/ContentBox/SelectedPreview/SelectedMargin/SelectedVBox/StreamFrame" unique_id=1822635447]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SpeakingBorder" type="Panel" parent="Content/ContentBox/SelectedPreview" unique_id=1502003677]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("1_m3ht5")
+
+[node name="GradientLayer" type="Control" parent="Content" unique_id=1838474202]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BottomGradient" type="ColorRect" parent="Content/GradientLayer" unique_id=875602305]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_bottom_gradient")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -190.0
+offset_right = 18.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_f7t6v")
+opacity = 0.3
+
+[node name="UsersOverlay" type="Control" parent="Content" unique_id=1948052668]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UsersHoverZone" type="Control" parent="Content/UsersOverlay" unique_id=754344815]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+
+[node name="UsersList" type="PanelContainer" parent="Content/UsersOverlay" unique_id=792488142 node_paths=PackedStringArray("_grid")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_25ak8")
+_grid = NodePath("Margin/Grid")
+
+[node name="Margin" type="MarginContainer" parent="Content/UsersOverlay/UsersList" unique_id=1931740615]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Grid" type="GridContainer" parent="Content/UsersOverlay/UsersList/Margin" unique_id=1489239967]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="User1" type="AspectRatioContainer" parent="Content/UsersOverlay/UsersList/Margin/Grid" unique_id=1975854655]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+ratio = 1.78
+
+[node name="Tile" type="Button" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1" unique_id=1447918145]
+custom_minimum_size = Vector2(220, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Смотреть экран участника"
+focus_mode = 0
+
+[node name="TileMargin" type="MarginContainer" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile" unique_id=742285203]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TileVBox" type="VBoxContainer" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin" unique_id=1593377312]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="TileName" type="Label" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=27953930]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Друг 1"
+
+[node name="TileView" type="Control" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=1643908148]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="TileBackdrop" type="Panel" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=777230643]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"View"
+
+[node name="TileEmpty" type="Label" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=862044614]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Caption"
+text = "—"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TileStream" type="TextureRect" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=266141565]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TalkingBorder" type="Panel" parent="Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile" unique_id=1460130998]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_m3ht5")
+
+[node name="ControlsOverlay" type="CenterContainer" parent="Content" unique_id=132239056]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+script = ExtResource("12_toolbox")
+
+[node name="ControlsRow" type="HBoxContainer" parent="Content/ControlsOverlay" unique_id=409793378]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="MicButton" type="Button" parent="Content/ControlsOverlay/ControlsRow" unique_id=662052201]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Микрофон: вкл/выкл"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+toggle_mode = true
+icon = ExtResource("5_x5uv7")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="SpeakerButton" type="Button" parent="Content/ControlsOverlay/ControlsRow" unique_id=776992086]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Динамик: вкл/выкл"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+toggle_mode = true
+icon = ExtResource("6_oakdu")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="BroadcastButton" type="Button" parent="Content/ControlsOverlay/ControlsRow" unique_id=28079219]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Трансляция экрана"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+toggle_mode = true
+icon = ExtResource("7_6rptx")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="SettingsButton" type="Button" parent="Content/ControlsOverlay/ControlsRow" unique_id=640667391]
+script = ExtResource("11_settings_button")
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Настройки"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_settings")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_settings")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_settings")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_settings")
+icon = ExtResource("8_aomdx")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ExitButton" type="Button" parent="Content/ControlsOverlay/ControlsRow" unique_id=645102170]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Выйти из комнаты"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+icon = ExtResource("9_uj1sl")
+flat = true
+icon_alignment = 1
+expand_icon = true

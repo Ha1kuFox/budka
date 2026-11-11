@@ -14,7 +14,6 @@ const SETTINGS_PATH: String = "user://budka_settings.cfg"
 @onready var _device_option: OptionButton = %DeviceOption
 @onready var _volume_slider: HSlider = %VolumeSlider
 @onready var _volume_value: Label = %VolumeValue
-@onready var _button: Button = %SettingsButton
 @onready var _close_button: Button = $SettingsOverlay/Panel/Margin/Box/CloseButton
 @onready var _ptt_row: VBoxContainer = %PTTRow
 @onready var _ptt_button: Button = %PTTButton
@@ -25,6 +24,7 @@ var _ptt_keycode: int = KEY_V
 
 
 func _ready() -> void:
+	add_to_group("settings_panel")
 	L.info("settings: SettingsPanel ready")
 	_theme_option.add_item("Системная")
 	_theme_option.add_item("Светлая")
@@ -32,7 +32,6 @@ func _ready() -> void:
 	_mic_mode_option.add_item("VOX")
 	_mic_mode_option.add_item("PTT")
 
-	_button.pressed.connect(_toggle)
 	_close_button.pressed.connect(close)
 	_theme_option.item_selected.connect(_on_theme_selected)
 	_noise_check.toggled.connect(_on_noise_toggled)
@@ -44,6 +43,10 @@ func _ready() -> void:
 	room.visibility_changed.connect(_on_room_visibility_changed)
 	_load_ptt_key()
 	_sync_state()
+
+
+func toggle() -> void:
+	_toggle()
 
 
 func close() -> void:

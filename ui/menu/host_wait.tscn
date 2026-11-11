@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bppjveawf3v1n"]
+
+[ext_resource type="Script" uid="uid://cpelhal5q132t" path="res://ui/menu/host_wait.gd" id="1_8neld"]
+
+[node name="HostWait" type="CenterContainer" unique_id=1398737376]
+visible = false
+script = ExtResource("1_8neld")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1564995789]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=827559323]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="Panel/Margin" unique_id=1680347596]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Panel/Margin/Box" unique_id=1636301584]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "Комната создана"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Panel/Margin/Box" unique_id=245005112]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Отправьте этот код для соединения"
+horizontal_alignment = 1
+
+[node name="HostCode" type="Label" parent="Panel/Margin/Box" unique_id=377544814]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"Title"
+theme_override_font_sizes/font_size = 24
+text = "—"
+horizontal_alignment = 1
+
+[node name="CopyCodeButton" type="Button" parent="Panel/Margin/Box" unique_id=1675533486]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Скопировать"
+
+[node name="CancelHostButton" type="Button" parent="Panel/Margin/Box" unique_id=674502803]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Выйти"

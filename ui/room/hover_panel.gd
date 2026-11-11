@@ -37,6 +37,8 @@ func _ready() -> void:
 func set_active(active: bool) -> void:
 	if active == _active:
 		return
+	if _tween != null:
+		_tween.kill()
 	_active = active
 	_hovered = false
 	_pointer_inside = false

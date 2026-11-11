@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://dnw0fyok0evvs"]
+
+[ext_resource type="Script" uid="uid://dpnxjxviu4hb0" path="res://ui/settings/settings_panel.gd" id="1_7kwmf"]
+
+[node name="Settings" type="Control" unique_id=6395375]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_7kwmf")
+
+[node name="SettingsOverlay" type="CenterContainer" parent="." unique_id=82110540]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="SettingsOverlay" unique_id=2102833225]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="SettingsOverlay/Panel" unique_id=1383474400]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="Box" type="VBoxContainer" parent="SettingsOverlay/Panel/Margin" unique_id=1943864571]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SettingsOverlay/Panel/Margin/Box" unique_id=883406802]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "Настройки"
+
+[node name="ThemeCaption" type="Label" parent="SettingsOverlay/Panel/Margin/Box" unique_id=767347053]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Тема"
+
+[node name="ThemeOption" type="OptionButton" parent="SettingsOverlay/Panel/Margin/Box" unique_id=2104111223]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="SeparatorA" type="HSeparator" parent="SettingsOverlay/Panel/Margin/Box" unique_id=815829464]
+layout_mode = 2
+
+[node name="DeviceCaption" type="Label" parent="SettingsOverlay/Panel/Margin/Box" unique_id=411751338]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Микрофон"
+
+[node name="DeviceOption" type="OptionButton" parent="SettingsOverlay/Panel/Margin/Box" unique_id=419427910]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="NoiseCheck" type="CheckButton" parent="SettingsOverlay/Panel/Margin/Box" unique_id=1856456334]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Шумоподавление (RNNoise)"
+
+[node name="MicModeCaption" type="Label" parent="SettingsOverlay/Panel/Margin/Box" unique_id=697870860]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Режим микрофона"
+
+[node name="MicModeOption" type="OptionButton" parent="SettingsOverlay/Panel/Margin/Box" unique_id=829781375]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="PTTRow" type="VBoxContainer" parent="SettingsOverlay/Panel/Margin/Box" unique_id=1360451616]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PTTCaption" type="Label" parent="SettingsOverlay/Panel/Margin/Box/PTTRow" unique_id=1750227854]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Клавиша PTT"
+
+[node name="PTTButton" type="Button" parent="SettingsOverlay/Panel/Margin/Box/PTTRow" unique_id=1420293350]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+text = "V"
+
+[node name="SeparatorB" type="HSeparator" parent="SettingsOverlay/Panel/Margin/Box" unique_id=1009118328]
+layout_mode = 2
+
+[node name="VolumeCaption" type="Label" parent="SettingsOverlay/Panel/Margin/Box" unique_id=812775351]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Громкость"
+
+[node name="VolumeRow" type="HBoxContainer" parent="SettingsOverlay/Panel/Margin/Box" unique_id=1314467987]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsOverlay/Panel/Margin/Box/VolumeRow" unique_id=981301306]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -40.0
+max_value = 6.0
+
+[node name="VolumeValue" type="Label" parent="SettingsOverlay/Panel/Margin/Box/VolumeRow" unique_id=1209857541]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 0)
+layout_mode = 2
+theme_type_variation = &"Caption"
+horizontal_alignment = 2
+
+[node name="CloseButton" type="Button" parent="SettingsOverlay/Panel/Margin/Box" unique_id=667257281]
+layout_mode = 2
+text = "Закрыть"

@@ -16,7 +16,7 @@ config/name_localized={
 }
 config/description="Ну по сути войсчат через стим."
 config/version="0.0.1"
-run/main_scene="uid://djj61yb2tn545"
+run/main_scene="res://ui/shell/root.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)

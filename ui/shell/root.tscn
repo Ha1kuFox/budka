@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://djj61yb2tn545"]
+
+[ext_resource type="Theme" uid="uid://dei8sbc774but" path="res://ui/theme/theme_dark.tres" id="1_w7qd7"]
+[ext_resource type="PackedScene" uid="uid://bi71bi51vaa4c" path="res://ui/menu/main_menu.tscn" id="3_fkis5"]
+[ext_resource type="PackedScene" uid="uid://uqjasn5ktnq2" path="res://ui/room/room.tscn" id="4_qbufl"]
+[ext_resource type="PackedScene" uid="uid://bppjveawf3v1n" path="res://ui/menu/host_wait.tscn" id="5_qbufl"]
+[ext_resource type="Script" uid="uid://v13sn7pvctwu" path="res://stream/screen_stream.gd" id="12_j0tb4"]
+[ext_resource type="Script" uid="uid://bj0pbswcminx1" path="res://stream/screen_capture.gd" id="13_wwbmv"]
+[ext_resource type="PackedScene" uid="uid://dnw0fyok0evvs" path="res://ui/settings/settings.tscn" id="14_qbufl"]
+[ext_resource type="Script" uid="uid://cbumfsqcxm4p8" path="res://stream/h264_encoder.gd" id="14_xexp0"]
+[ext_resource type="Script" uid="uid://dngp8gdvreieq" path="res://stream/h264_decoder.gd" id="15_nkpbl"]
+[ext_resource type="Script" path="res://stream/stream_broadcaster.gd" id="26_broadcaster"]
+[ext_resource type="Script" uid="uid://dp4u2jbcj2xdv" path="res://ui/theme/theme_applier.gd" id="16_qj5ir"]
+[ext_resource type="Theme" uid="uid://cmnuruejcmonu" path="res://ui/theme/theme_light.tres" id="17_bioh5"]
+[ext_resource type="Script" uid="uid://bq5egnmn67ek4" path="res://network/remote_streams.gd" id="18_3gmte"]
+[ext_resource type="Script" uid="uid://dq8qs6xpdthpx" path="res://ui/room/hover_panel.gd" id="19_3awa8"]
+[ext_resource type="Script" uid="uid://yu5n50gws4cb" path="res://ui/shell/screen_router.gd" id="25_screen_router"]
+
+[node name="Root" type="Control" unique_id=1129687818]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_w7qd7")
+
+[node name="BG" type="ColorRect" parent="." unique_id=806281188]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.141176, 0.141176, 1)
+
+[node name="SafeZone" type="MarginContainer" parent="." unique_id=1334442533]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="MainMenu" parent="SafeZone" unique_id=1470523380 instance=ExtResource("3_fkis5")]
+layout_mode = 2
+
+[node name="Room" parent="SafeZone" unique_id=882109344 instance=ExtResource("4_qbufl") node_paths=PackedStringArray("remote_streams", "hover_panel", "broadcaster")]
+layout_mode = 2
+remote_streams = NodePath("../../RemoteStreams")
+hover_panel = NodePath("../../HoverPanel")
+broadcaster = NodePath("../../ScreenStream/Broadcaster")
+
+[node name="HostWait" parent="SafeZone" unique_id=1398737376 instance=ExtResource("5_qbufl")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ScreenStream" type="Node" parent="." unique_id=1011937049]
+script = ExtResource("12_j0tb4")
+
+[node name="Capture" type="Node" parent="ScreenStream" unique_id=1011937050]
+script = ExtResource("13_wwbmv")
+
+[node name="DesktopCaster" type="DesktopCaster" parent="ScreenStream/Capture" unique_id=1011937051]
+
+[node name="Encoder" type="Node" parent="ScreenStream" unique_id=1011937052]
+script = ExtResource("14_xexp0")
+
+[node name="Decoder" type="Node" parent="ScreenStream" unique_id=1011937053]
+script = ExtResource("15_nkpbl")
+
+[node name="Broadcaster" type="Node" parent="ScreenStream" unique_id=1011937121]
+script = ExtResource("26_broadcaster")
+
+[node name="ThemeApplier" type="Node" parent="." unique_id=1011937054 node_paths=PackedStringArray("target")]
+script = ExtResource("16_qj5ir")
+dark_theme = ExtResource("1_w7qd7")
+light_theme = ExtResource("17_bioh5")
+target = NodePath("..")
+
+[node name="RemoteStreams" type="Node" parent="." unique_id=1011937075]
+script = ExtResource("18_3gmte")
+
+[node name="HoverPanel" type="Control" parent="." unique_id=1011937076 node_paths=PackedStringArray("users_list", "hover_zone", "grid")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("19_3awa8")
+users_list = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersList")
+hover_zone = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersHoverZone")
+grid = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersList")
+
+[node name="HideTimer" type="Timer" parent="HoverPanel" unique_id=1011937105]
+unique_name_in_owner = true
+wait_time = 0.25
+one_shot = true
+
+[node name="WatchTimer" type="Timer" parent="HoverPanel" unique_id=1011937106]
+unique_name_in_owner = true
+wait_time = 0.12
+
+[node name="Settings" parent="." unique_id=6395375 instance=ExtResource("14_qbufl")]
+layout_mode = 1
+
+[node name="Attribution" type="Label" parent="." unique_id=1011937079]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -34.0
+offset_right = 420.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_type_variation = &"Caption"
+text = "Логотип: Flaticon.com"
+vertical_alignment = 1
+
+[node name="ScreenRouter" type="Node" parent="." unique_id=1011937120 node_paths=PackedStringArray("main_menu", "room", "host_wait", "attribution")]
+script = ExtResource("25_screen_router")
+main_menu = NodePath("../SafeZone/MainMenu")
+room = NodePath("../SafeZone/Room")
+host_wait = NodePath("../SafeZone/HostWait")
+attribution = NodePath("../Attribution")

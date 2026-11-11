@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://b4sll5houb5xe" path="res://assets/icons/sound_full_shadow.png" id="9_sound_shadow"]
 [ext_resource type="Texture2D" uid="uid://cyfymygciumdk" path="res://assets/icons/broadcast_shadow.png" id="10_broadcast_shadow"]
 [ext_resource type="Texture2D" uid="uid://cawo1fmnk3oqq" path="res://assets/icons/exit_shadow.png" id="11_exit_shadow"]
+[ext_resource type="Texture2D" uid="uid://0f8qejrb2qis" path="res://assets/icons/settings.svg" id="19_settings"]
 [ext_resource type="Script" uid="uid://wvabckaadjw4" path="res://ui/users_grid.gd" id="12_users_grid"]
 [ext_resource type="Script" uid="uid://bq5egnmn67ek4" path="res://network/remote_streams.gd" id="13_remote_streams"]
 [ext_resource type="Script" uid="uid://dq8qs6xpdthpx" path="res://ui/hover_panel.gd" id="14_hover_panel"]
@@ -25,6 +26,12 @@ shader = ExtResource("17_bottom_gradient")
 shader_parameter/opacity = 0.9
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flat"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_settings"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
 
 [node name="Root" type="Control" unique_id=1129687818]
 layout_mode = 3
@@ -102,93 +109,6 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="UsersList" type="PanelContainer" parent="SafeZone/Room/Content/ContentBox" unique_id=1011937013 node_paths=PackedStringArray("_grid")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 128)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
-script = ExtResource("12_users_grid")
-_grid = NodePath("Margin/Grid")
-
-[node name="Margin" type="MarginContainer" parent="SafeZone/Room/Content/ContentBox/UsersList" unique_id=1011937014]
-layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="Grid" type="GridContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin" unique_id=665102336]
-layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 2
-
-[node name="User1" type="AspectRatioContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid" unique_id=391840862]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-ratio = 1.78
-
-[node name="Tile" type="Button" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1" unique_id=1011937018]
-custom_minimum_size = Vector2(220, 104)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-tooltip_text = "Смотреть экран участника"
-focus_mode = 0
-
-[node name="TileMargin" type="MarginContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile" unique_id=1011937019]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="TileVBox" type="VBoxContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin" unique_id=1011937020]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 4
-
-[node name="TileName" type="Label" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=1011937021]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Друг 1"
-
-[node name="TileView" type="Control" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=1011937022]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="TileBackdrop" type="Panel" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=1011937023]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_type_variation = &"View"
-
-[node name="TileEmpty" type="Label" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=1011937024]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"Caption"
-text = "—"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="SelectedPreview" type="PanelContainer" parent="SafeZone/Room/Content/ContentBox" unique_id=1011937003]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -239,6 +159,7 @@ mouse_filter = 2
 
 [node name="BottomGradient" type="ColorRect" parent="SafeZone/Room/Content/GradientLayer" unique_id=1011937081]
 unique_name_in_owner = true
+visible = false
 material = SubResource("ShaderMaterial_bottom_gradient")
 layout_mode = 1
 anchors_preset = 12
@@ -254,6 +175,131 @@ grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("18_bottom_gradient")
 opacity = 0.3
+
+[node name="UsersOverlay" type="Control" parent="SafeZone/Room/Content" unique_id=1011937082]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UsersHoverZone" type="Control" parent="SafeZone/Room/Content/UsersOverlay" unique_id=1011937083]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_right = 1.0
+offset_bottom = 32.0
+mouse_filter = 0
+
+[node name="UsersList" type="PanelContainer" parent="SafeZone/Room/Content/UsersOverlay" unique_id=1011937013 node_paths=PackedStringArray("_grid")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_users_grid")
+_grid = NodePath("Margin/Grid")
+
+[node name="Margin" type="MarginContainer" parent="SafeZone/Room/Content/UsersOverlay/UsersList" unique_id=1011937014]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Grid" type="GridContainer" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin" unique_id=665102336]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="User1" type="AspectRatioContainer" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid" unique_id=391840862]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+ratio = 1.78
+
+[node name="Tile" type="Button" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1" unique_id=1011937018]
+custom_minimum_size = Vector2(220, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Смотреть экран участника"
+focus_mode = 0
+
+[node name="TileMargin" type="MarginContainer" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile" unique_id=1011937019]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TileVBox" type="VBoxContainer" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin" unique_id=1011937020]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="TileName" type="Label" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=1011937021]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Друг 1"
+
+[node name="TileView" type="Control" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=1011937022]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="TileBackdrop" type="Panel" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=1011937023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"View"
+
+[node name="TileEmpty" type="Label" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=1011937024]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Caption"
+text = "—"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TileStream" type="TextureRect" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TalkingBorder" type="Panel" parent="SafeZone/Room/Content/UsersOverlay/UsersList/Margin/Grid/User1/Tile"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_speaking_border")
 
 [node name="ControlsOverlay" type="CenterContainer" parent="SafeZone/Room/Content" unique_id=1011937068]
 layout_mode = 2
@@ -310,6 +356,20 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="SettingsButton" type="Button" parent="SafeZone/Room/Content/ControlsOverlay/ControlsRow" unique_id=1011937084]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Настройки"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_settings")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_settings")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_settings")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_settings")
+icon = ExtResource("19_settings")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
 [node name="ExitButton" type="Button" parent="SafeZone/Room/Content/ControlsOverlay/ControlsRow" unique_id=886513853]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
@@ -347,7 +407,7 @@ target = NodePath("..")
 [node name="RemoteStreams" type="Node" parent="." unique_id=1011937075]
 script = ExtResource("13_remote_streams")
 
-[node name="HoverPanel" type="Control" parent="." unique_id=1011937076]
+[node name="HoverPanel" type="Control" parent="." unique_id=1011937076 node_paths=PackedStringArray("users_list", "hover_zone", "grid")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,6 +416,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("14_hover_panel")
+users_list = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersList")
+hover_zone = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersHoverZone")
+grid = NodePath("../SafeZone/Room/Content/UsersOverlay/UsersList")
 
 [node name="SettingsPanel" type="Control" parent="." unique_id=1011937077]
 layout_mode = 1
@@ -381,3 +444,128 @@ grow_vertical = 0
 theme_type_variation = &"Caption"
 text = "Логотип: Flaticon.com"
 vertical_alignment = 1
+
+[node name="SettingsOverlay" type="CenterContainer" parent="SettingsPanel" unique_id=1011937085]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="SettingsPanel/SettingsOverlay" unique_id=1011937086]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="SettingsPanel/SettingsOverlay/Panel" unique_id=1011937087]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="Box" type="VBoxContainer" parent="SettingsPanel/SettingsOverlay/Panel/Margin" unique_id=1011937088]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937089]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "Настройки"
+
+[node name="ThemeCaption" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937090]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Тема"
+
+[node name="ThemeOption" type="OptionButton" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937091]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="SeparatorA" type="HSeparator" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937092]
+layout_mode = 2
+
+[node name="DeviceCaption" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937093]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Микрофон"
+
+[node name="DeviceOption" type="OptionButton" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937094]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="NoiseCheck" type="CheckButton" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937096]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Шумоподавление (RNNoise)"
+
+[node name="MicModeCaption" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937097]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Режим микрофона"
+
+[node name="MicModeOption" type="OptionButton" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937098]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="PTTRow" type="VBoxContainer" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937107]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PTTCaption" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box/PTTRow" unique_id=1011937108]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Клавиша PTT"
+
+[node name="PTTButton" type="Button" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box/PTTRow" unique_id=1011937109]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+text = "V"
+
+[node name="SeparatorB" type="HSeparator" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937099]
+layout_mode = 2
+
+[node name="VolumeCaption" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937100]
+layout_mode = 2
+theme_type_variation = &"Caption"
+text = "Громкость"
+
+[node name="VolumeRow" type="HBoxContainer" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937101]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box/VolumeRow" unique_id=1011937102]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -40.0
+max_value = 6.0
+step = 1.0
+
+[node name="VolumeValue" type="Label" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box/VolumeRow" unique_id=1011937103]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 0)
+layout_mode = 2
+theme_type_variation = &"Caption"
+horizontal_alignment = 2
+
+[node name="CloseButton" type="Button" parent="SettingsPanel/SettingsOverlay/Panel/Margin/Box" unique_id=1011937104]
+layout_mode = 2
+text = "Закрыть"
+
+[node name="HideTimer" type="Timer" parent="HoverPanel" unique_id=1011937105]
+unique_name_in_owner = true
+one_shot = true
+wait_time = 0.25
+
+[node name="WatchTimer" type="Timer" parent="HoverPanel" unique_id=1011937106]
+unique_name_in_owner = true
+wait_time = 0.12

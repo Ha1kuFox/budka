@@ -7,20 +7,13 @@ signal speaker_toggled(enabled: bool)
 signal broadcast_toggled(enabled: bool)
 signal user_selected(user_id: int)
 
-enum UIMode {
-	PANEL,
-	MAIN,
-}
-
 const COLOR_LIVE: Color = Color(0.207843, 0.517647, 0.894118)
 const COLOR_EXIT: Color = Color(1.0, 0.35, 0.35)
 
-@export var demo_users: Array[String] = []
 @export var host_user_id: int = 0
 
 @onready var _users_list: UsersGrid = %UsersList
-@onready var _content_box: VBoxContainer = _users_list.get_parent() as VBoxContainer
-@onready var _selected_preview: PanelContainer = _content_box.get_node("SelectedPreview") as PanelContainer
+@onready var _selected_preview: PanelContainer = $SafeZone/Room/Content/ContentBox/SelectedPreview
 @onready var _selected_stream: TextureRect = %SelectedStream
 @onready var _exit_button: Button = %ExitButton
 @onready var _mic_button: Button = %MicButton
@@ -31,8 +24,6 @@ const COLOR_EXIT: Color = Color(1.0, 0.35, 0.35)
 @onready var _screen_stream: ScreenStream = $ScreenStream
 @onready var _remote_streams: RemoteStreams = $RemoteStreams
 @onready var _hover_panel: HoverPanel = $HoverPanel
-@onready var _settings_panel: SettingsPanel = $SettingsPanel
-@onready var _theme_applier: ThemeApplier = $ThemeApplier
 @onready var _speaking_border: Panel = %SpeakingBorder
 @onready var _attribution: Label = $Attribution
 @onready var _bottom_gradient: ColorRect = %BottomGradient
@@ -45,8 +36,6 @@ var _accent_style: StyleBoxFlat
 var _local_streaming: bool = false
 var _local_texture: ImageTexture
 
-var _ui_mode: UIMode = UIMode.PANEL
-var _network: Node
 var _talking: Dictionary = {}
 
 
@@ -69,11 +58,8 @@ func _ready() -> void:
 	_selected_stream.mouse_filter = Control.MOUSE_FILTER_STOP
 	_selected_stream.gui_input.connect(_on_stream_input)
 
-	var voice: Node = get_node_or_null("/root/VoiceChat")
-	if voice != null and voice.has_signal("error"):
-		voice.error.connect(_on_voice_error)
-	if voice != null and voice.has_signal("peer_talking"):
-		voice.peer_talking.connect(_on_peer_talking)
+	VoiceChat.error.connect(_on_voice_error)
+	VoiceChat.peer_talking.connect(_on_peer_talking)
 
 	_screen_stream.frame_ready.connect(_on_screen_frame)
 	_screen_stream.failed.connect(_on_screen_failed)
@@ -84,18 +70,8 @@ func _ready() -> void:
 	_remote_streams.stream_removed.connect(_on_remote_texture_removed)
 	_remote_streams.stream_failed.connect(_on_remote_stream_failed)
 
-	_hover_panel.setup(_users_list, _content_box, _users_list)
-	_settings_panel.mode_selected.connect(_on_ui_mode_selected)
-	_settings_panel.theme_selected.connect(_on_theme_selected)
-	_settings_panel.set_mode(UIMode.PANEL)
-	_settings_panel.set_theme_mode(int(_theme_applier.mode))
-
 	_setup_network()
-
-	if _network == null:
-		_apply_demo_users()
-	else:
-		set_users([])
+	set_users([])
 
 
 func set_users(users: Array) -> void:
@@ -152,44 +128,28 @@ func get_selected_user() -> Dictionary:
 	return _get_user(_selected_id)
 
 
-func set_ui_mode(mode: UIMode) -> void:
-	if mode == _ui_mode:
-		return
-	L.info("room: ui mode=%d" % mode)
-	_ui_mode = mode
-	_settings_panel.set_mode(mode)
-	_settings_panel.close()
-	_refresh_view()
-
-
 func _setup_network() -> void:
-	_network = get_node_or_null("/root/NetworkManager")
-
 	var connect_button: Button = $SafeZone/MainMenu/Buttons/ConnectionRow/ConnectButton
 	var host_button: Button = $SafeZone/MainMenu/Buttons/HostButton
 	var uid_input: LineEdit = $SafeZone/MainMenu/Buttons/ConnectionRow/UIDInput
 
-	if _network != null:
-		_network.joined.connect(_on_network_joined)
-		_network.left.connect(_on_network_left)
-		_network.users_changed.connect(_on_network_users)
-		_network.stream_access_unit.connect(_on_network_stream)
-		_network.error.connect(_on_network_error)
-		connect_button.pressed.connect(func() -> void: _network.join(uid_input.text))
-		host_button.pressed.connect(func() -> void: _network.host())
-	else:
-		connect_button.pressed.connect(_show_room)
-		host_button.pressed.connect(_show_room)
+	NetworkManager.joined.connect(_on_network_joined)
+	NetworkManager.left.connect(_on_network_left)
+	NetworkManager.users_changed.connect(_on_network_users)
+	NetworkManager.stream_access_unit.connect(_on_network_stream)
+	NetworkManager.error.connect(_on_network_error)
+	connect_button.pressed.connect(func() -> void: NetworkManager.join(uid_input.text))
+	host_button.pressed.connect(func() -> void: NetworkManager.host())
 
-	if _network != null and _network.connected:
+	if NetworkManager.connected:
 		_show_room()
 	else:
 		_show_main_menu()
 
 
 func _on_network_joined() -> void:
-	L.info("room: joined local_id=%d" % _network.local_id)
-	host_user_id = _network.local_id
+	L.info("room: joined local_id=%d" % NetworkManager.local_id)
+	host_user_id = NetworkManager.local_id
 	_show_room()
 
 
@@ -198,7 +158,6 @@ func _on_network_left() -> void:
 	_stop_streaming()
 	_remote_streams.clear()
 	_selected_id = -1
-	_settings_panel.close()
 	set_users([])
 	_show_main_menu()
 
@@ -255,23 +214,9 @@ func _on_stream_input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if _settings_panel.is_open():
-			_settings_panel.close()
-			get_viewport().set_input_as_handled()
-		elif _selected_id != -1:
-			clear_selection()
-			get_viewport().set_input_as_handled()
-
-
-func _on_ui_mode_selected(mode: int) -> void:
-	set_ui_mode(mode as UIMode)
-
-
-func _on_theme_selected(mode: int) -> void:
-	L.info("room: theme=%d" % mode)
-	_theme_applier.mode = mode as ThemeApplier.Mode
-	_settings_panel.set_theme_mode(mode)
+	if event.is_action_pressed("ui_cancel") and _selected_id != -1:
+		clear_selection()
+		get_viewport().set_input_as_handled()
 
 
 func _on_user_picked(user_id: int) -> void:
@@ -288,22 +233,21 @@ func _on_user_picked(user_id: int) -> void:
 func _on_exit_pressed() -> void:
 	L.info("room: exit")
 	exit_requested.emit()
-	if _network != null:
-		_network.leave()
-	else:
-		_stop_streaming()
-		_show_main_menu()
+	NetworkManager.leave()
 
 
 func _on_mic_toggled(enabled: bool) -> void:
 	L.info("room: mic=%s" % enabled)
 	mic_toggled.emit(enabled)
-	if enabled and (_network == null or not _network.connected):
-		_mic_button.set_pressed_no_signal(false)
-		return
-	var voice: Node = get_node_or_null("/root/VoiceChat")
-	if voice != null and voice.has_method("set_mic_enabled"):
-		voice.set_mic_enabled(enabled)
+	_apply_mic(enabled)
+
+
+func _apply_mic(enabled: bool) -> void:
+	var allowed: bool = enabled
+	if allowed and not NetworkManager.connected:
+		allowed = false
+	_mic_button.set_pressed_no_signal(allowed)
+	VoiceChat.set_mic_enabled(allowed)
 
 
 func _on_speaker_toggled(enabled: bool) -> void:
@@ -313,9 +257,7 @@ func _on_speaker_toggled(enabled: bool) -> void:
 
 
 func _apply_speaker_volume(enabled: bool) -> void:
-	var voice: Node = get_node_or_null("/root/VoiceChat")
-	if voice != null and voice.has_method("set_output_volume"):
-		voice.set_output_volume(0.0 if enabled else -40.0)
+	VoiceChat.set_output_volume(0.0 if enabled else -40.0)
 
 
 func _on_broadcast_toggled(enabled: bool) -> void:
@@ -330,8 +272,7 @@ func _on_broadcast_toggled(enabled: bool) -> void:
 		_set_host_streaming(true)
 		L.info("room: sharing %s @ %d fps" % [_screen_stream.stream_size, _screen_stream.fps])
 		_users_list.set_users(_users)
-		if _network != null:
-			_network.set_streaming(true)
+		NetworkManager.set_streaming(true)
 	else:
 		_stop_streaming()
 	_refresh_view()
@@ -346,8 +287,7 @@ func _stop_streaming() -> void:
 	_users_list.clear_texture(host_user_id)
 	_set_host_streaming(false)
 	_users_list.set_users(_users)
-	if _network != null:
-		_network.set_streaming(false)
+	NetworkManager.set_streaming(false)
 	if _broadcast_button.button_pressed:
 		_broadcast_button.set_pressed_no_signal(false)
 
@@ -376,21 +316,13 @@ func _on_screen_failed(message: String) -> void:
 
 
 func _on_local_access_unit(data: PackedByteArray, keyframe: bool) -> void:
-	if _network != null:
-		_network.send_stream(data, keyframe)
-
-
-func _apply_demo_users() -> void:
-	var users: Array = []
-	for i: int in demo_users.size():
-		users.append({"id": i, "name": demo_users[i], "streaming": i > 0})
-	set_users(users)
+	NetworkManager.send_stream(data, keyframe)
 
 
 func _refresh_view() -> void:
 	var texture: Texture2D = _texture_for(_selected_id) if _selected_id != -1 else null
 	var show_stream: bool = texture != null
-	var overlay_mode: bool = _ui_mode == UIMode.MAIN and show_stream
+	var overlay_mode: bool = show_stream
 
 	_users_list.set_watching(show_stream)
 	_users_list.set_overlay_mode(overlay_mode)
@@ -398,7 +330,6 @@ func _refresh_view() -> void:
 	_users_list.visible = not _users.is_empty()
 	_selected_preview.visible = show_stream
 	_bottom_gradient.visible = show_stream
-	_users_list.size_flags_vertical = 0 if show_stream and not overlay_mode else (3 if not show_stream else 0)
 	_selected_stream.texture = texture
 
 	if show_stream:

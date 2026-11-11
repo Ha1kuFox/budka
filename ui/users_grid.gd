@@ -8,7 +8,6 @@ signal layout_changed(height: float)
 const MAX_USERS: int = 6
 const GRID_GAP: float = 10.0
 const ASPECT: float = 16.0 / 9.0
-const SPEAKING_BORDER: GDScript = preload("res://ui/speaking_border.gd")
 
 @export var _grid: GridContainer
 
@@ -133,26 +132,12 @@ func _ensure_cells(count: int) -> void:
 		_cells.append(cell)
 		_tiles.append(tile)
 
-		var border: Panel = SPEAKING_BORDER.new() as Panel
-		border.name = "TalkingBorder"
-		border.visible = false
-		tile.add_child(border)
-		_borders.append(border)
+		_borders.append(tile.get_node("TalkingBorder") as Panel)
 
 
 func _ensure_preview(tile: Button) -> TextureRect:
 	var view: Control = tile.get_node("TileMargin/TileVBox/TileView") as Control
-	var preview: TextureRect = view.get_node_or_null("TileStream") as TextureRect
-	if preview == null:
-		preview = TextureRect.new()
-		preview.name = "TileStream"
-		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-		view.add_child(preview)
-		view.move_child(preview, 1)
-		preview.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	return preview
+	return view.get_node("TileStream") as TextureRect
 
 
 func _update_preview(index: int) -> void:
@@ -164,7 +149,7 @@ func _update_preview(index: int) -> void:
 	var texture: Texture2D = _textures.get(user_id) as Texture2D
 	preview.texture = texture
 	preview.visible = texture != null
-	var empty: Label = tile.get_node_or_null("TileMargin/TileVBox/TileView/TileEmpty") as Label
+	var empty: Label = tile.get_node("TileMargin/TileVBox/TileView/TileEmpty") as Label
 	if empty != null:
 		empty.visible = texture == null
 
@@ -203,13 +188,13 @@ func _layout() -> void:
 		height = max_height
 		width = height * ASPECT
 
-	var size: Vector2 = Vector2(floorf(width), floorf(height))
-	if size != _last_logged_size or columns != _last_logged_columns:
-		L.debug("grid: columns=%d rows=%d cell=%s watch=%s overlay=%s" % [columns, rows, size, _watching, _overlay_mode])
-		_last_logged_size = size
+	var sz: Vector2 = Vector2(floorf(width), floorf(height))
+	if sz != _last_logged_size or columns != _last_logged_columns:
+		L.debug("grid: columns=%d rows=%d cell=%s watch=%s overlay=%s" % [columns, rows, sz, _watching, _overlay_mode])
+		_last_logged_size = sz
 		_last_logged_columns = columns
 	for i: int in count:
-		_cells[i].custom_minimum_size = size
+		_cells[i].custom_minimum_size = sz
 
 	var grid_height: float = size.y * rows + GRID_GAP * (rows - 1)
 	_panel_height = grid_height + 24.0

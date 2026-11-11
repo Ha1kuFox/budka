@@ -72,7 +72,7 @@ func _apply() -> void:
 	if control.theme != chosen:
 		control.theme = chosen
 
-	var background: ColorRect = control.get_node_or_null("BG") as ColorRect
+	var background: ColorRect = control.get_node("BG") as ColorRect
 	if background != null:
 		background.color = chosen.get_color("background", "Window")
 

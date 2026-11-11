@@ -26,11 +26,7 @@ var _rx_streams: Dictionary = {}
 
 func _ready() -> void:
 	L.info("net: NetworkManager ready")
-	_con = get_node_or_null("/root/Con")
-	if _con == null:
-		L.error("net: Con autoload is missing")
-		error.emit("Con autoload is missing")
-		return
+	_con = get_node("/root/Con")
 
 	_con.hosted.connect(_on_hosted)
 	_con.host_failed.connect(_on_host_failed)
@@ -199,10 +195,9 @@ func _name_for(user_id: int) -> String:
 	var result: String = "Player %d" % user_id
 	if _steam_available():
 		var steam: Object = Engine.get_singleton("Steam")
-		if steam.has_method("getFriendPersonaName"):
-			var value: String = str(steam.call("getFriendPersonaName", user_id))
-			if not value.is_empty():
-				result = value
+		var value: String = str(steam.call("getFriendPersonaName", user_id))
+		if not value.is_empty():
+			result = value
 	_names[user_id] = result
 	return result
 
@@ -210,10 +205,9 @@ func _name_for(user_id: int) -> String:
 func _local_name() -> String:
 	if _steam_available():
 		var steam: Object = Engine.get_singleton("Steam")
-		if steam.has_method("getPersonaName"):
-			var value: String = str(steam.call("getPersonaName"))
-			if not value.is_empty():
-				return value
+		var value: String = str(steam.call("getPersonaName"))
+		if not value.is_empty():
+			return value
 	return "Player"
 
 
@@ -221,8 +215,6 @@ func _steam_available() -> bool:
 	if not Engine.has_singleton("Steam"):
 		return false
 	var steam: Object = Engine.get_singleton("Steam")
-	if not steam.has_method("get_steam_init_result"):
-		return false
 	var result: Dictionary = steam.call("get_steam_init_result")
 	if result.is_empty() or int(result.get("status", 1)) != 0:
 		return false
@@ -244,13 +236,13 @@ func _close() -> void:
 
 
 @rpc("any_peer", "call_remote", "reliable")
-func _rpc_register(name: String) -> void:
+func _rpc_register(nickname: String) -> void:
 	if not multiplayer.is_server():
 		return
 	var sender: int = multiplayer.get_remote_sender_id()
 	if sender == 0:
 		return
-	_names[sender] = name.strip_edges()
+	_names[sender] = nickname.strip_edges()
 	L.debug("net: registered %d as %s" % [sender, _names[sender]])
 	if _names[sender].is_empty():
 		_names[sender] = "Player %d" % sender
@@ -308,9 +300,9 @@ func _assemble_stream(sender: int, seq: int, index: int, total: int, keyframe: b
 	if entry.is_empty() or int(entry.get("seq", -1)) != seq:
 		if index != 0:
 			return null
-		var parts: Array = []
-		parts.resize(total)
-		entry = {"seq": seq, "total": total, "parts": parts, "received": 0, "keyframe": keyframe}
+		var _parts: Array = []
+		_parts.resize(total)
+		entry = {"seq": seq, "total": total, "parts": _parts, "received": 0, "keyframe": keyframe}
 		_rx_streams[sender] = entry
 
 	if int(entry.get("total", 0)) != total:

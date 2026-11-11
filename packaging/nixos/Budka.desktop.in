@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Будка
+Name[en]=Budka
+Comment=Голосовой чат и трансляция экрана через Steam
+Comment[en]=Steam voice chat and screen sharing
+Exec=steam-run @APP@/Budka.x86_64
+Path=@APP@
+Icon=@ICON@
+Terminal=false
+Categories=Network;
+Keywords=voice;chat;steam;screen;share;
+StartupWMClass=Budka

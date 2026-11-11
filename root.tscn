@@ -1,0 +1,383 @@
+[gd_scene format=3 uid="uid://djj61yb2tn545"]
+
+[ext_resource type="Script" uid="uid://0b4d2ol2tqk1" path="res://root.gd" id="1_root"]
+[ext_resource type="Theme" uid="uid://dei8sbc774but" path="res://ui/theme_dark.tres" id="2_theme_dark"]
+[ext_resource type="Script" uid="uid://v13sn7pvctwu" path="res://stream/screen_stream.gd" id="3_stream"]
+[ext_resource type="Theme" uid="uid://cmnuruejcmonu" path="res://ui/theme_light.tres" id="3_theme_light"]
+[ext_resource type="Script" uid="uid://bj0pbswcminx1" path="res://stream/screen_capture.gd" id="4_capture"]
+[ext_resource type="Script" uid="uid://cbumfsqcxm4p8" path="res://stream/h264_encoder.gd" id="5_encoder"]
+[ext_resource type="Script" uid="uid://dngp8gdvreieq" path="res://stream/h264_decoder.gd" id="6_decoder"]
+[ext_resource type="Script" uid="uid://dp4u2jbcj2xdv" path="res://ui/theme_applier.gd" id="7_theme_applier"]
+[ext_resource type="Texture2D" uid="uid://bnqhx8bg4fk7u" path="res://assets/icons/mic_shadow.png" id="8_mic_shadow"]
+[ext_resource type="Texture2D" uid="uid://b4sll5houb5xe" path="res://assets/icons/sound_full_shadow.png" id="9_sound_shadow"]
+[ext_resource type="Texture2D" uid="uid://cyfymygciumdk" path="res://assets/icons/broadcast_shadow.png" id="10_broadcast_shadow"]
+[ext_resource type="Texture2D" uid="uid://cawo1fmnk3oqq" path="res://assets/icons/exit_shadow.png" id="11_exit_shadow"]
+[ext_resource type="Script" uid="uid://wvabckaadjw4" path="res://ui/users_grid.gd" id="12_users_grid"]
+[ext_resource type="Script" uid="uid://bq5egnmn67ek4" path="res://network/remote_streams.gd" id="13_remote_streams"]
+[ext_resource type="Script" uid="uid://dq8qs6xpdthpx" path="res://ui/hover_panel.gd" id="14_hover_panel"]
+[ext_resource type="Script" uid="uid://dpnxjxviu4hb0" path="res://ui/settings_panel.gd" id="15_settings_panel"]
+[ext_resource type="Script" uid="uid://dq72trf5xl8l5" path="res://ui/speaking_border.gd" id="16_speaking_border"]
+[ext_resource type="Shader" uid="uid://b8r76f22r3tl8" path="res://assets/shaders/bottom_gradient.gdshader" id="17_bottom_gradient"]
+[ext_resource type="Script" uid="uid://dskiovkcvdodw" path="res://ui/bottom_gradient.gd" id="18_bottom_gradient"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bottom_gradient"]
+shader = ExtResource("17_bottom_gradient")
+shader_parameter/opacity = 0.9
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flat"]
+
+[node name="Root" type="Control" unique_id=1129687818]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme_dark")
+script = ExtResource("1_root")
+demo_users = Array[String](["Хост", "Друг 1", "Друг 2"])
+
+[node name="BG" type="ColorRect" parent="." unique_id=806281188]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.141176, 0.141176, 1)
+
+[node name="SafeZone" type="MarginContainer" parent="." unique_id=1334442533]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="MainMenu" type="CenterContainer" parent="SafeZone" unique_id=400082937]
+visible = false
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="SafeZone/MainMenu" unique_id=2070716396]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+
+[node name="ConnectionRow" type="HBoxContainer" parent="SafeZone/MainMenu/Buttons" unique_id=1296641718]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UIDInput" type="LineEdit" parent="SafeZone/MainMenu/Buttons/ConnectionRow" unique_id=1047004562]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Steam UID"
+
+[node name="ConnectButton" type="Button" parent="SafeZone/MainMenu/Buttons/ConnectionRow" unique_id=253947502]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "CONNECT"
+
+[node name="HostButton" type="Button" parent="SafeZone/MainMenu/Buttons" unique_id=1431847941]
+layout_mode = 2
+size_flags_vertical = 3
+text = "HOST"
+
+[node name="Room" type="VBoxContainer" parent="SafeZone" unique_id=1244439845]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Content" type="MarginContainer" parent="SafeZone/Room" unique_id=1009640213]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="ContentBox" type="VBoxContainer" parent="SafeZone/Room/Content" unique_id=1011937067]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="UsersList" type="PanelContainer" parent="SafeZone/Room/Content/ContentBox" unique_id=1011937013 node_paths=PackedStringArray("_grid")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+script = ExtResource("12_users_grid")
+_grid = NodePath("Margin/Grid")
+
+[node name="Margin" type="MarginContainer" parent="SafeZone/Room/Content/ContentBox/UsersList" unique_id=1011937014]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Grid" type="GridContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin" unique_id=665102336]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="User1" type="AspectRatioContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid" unique_id=391840862]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+ratio = 1.78
+
+[node name="Tile" type="Button" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1" unique_id=1011937018]
+custom_minimum_size = Vector2(220, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Смотреть экран участника"
+focus_mode = 0
+
+[node name="TileMargin" type="MarginContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile" unique_id=1011937019]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TileVBox" type="VBoxContainer" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin" unique_id=1011937020]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="TileName" type="Label" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=1011937021]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Друг 1"
+
+[node name="TileView" type="Control" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox" unique_id=1011937022]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="TileBackdrop" type="Panel" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=1011937023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"View"
+
+[node name="TileEmpty" type="Label" parent="SafeZone/Room/Content/ContentBox/UsersList/Margin/Grid/User1/Tile/TileMargin/TileVBox/TileView" unique_id=1011937024]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Caption"
+text = "—"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectedPreview" type="PanelContainer" parent="SafeZone/Room/Content/ContentBox" unique_id=1011937003]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SelectedMargin" type="MarginContainer" parent="SafeZone/Room/Content/ContentBox/SelectedPreview" unique_id=1011937004]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="SelectedVBox" type="VBoxContainer" parent="SafeZone/Room/Content/ContentBox/SelectedPreview/SelectedMargin" unique_id=1011937005]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="SafeZone/Room/Content/ContentBox/SelectedPreview/SelectedMargin/SelectedVBox" unique_id=1011937006]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StreamFrame" type="Control" parent="SafeZone/Room/Content/ContentBox/SelectedPreview/SelectedMargin/SelectedVBox" unique_id=1011937009]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelectedStream" type="TextureRect" parent="SafeZone/Room/Content/ContentBox/SelectedPreview/SelectedMargin/SelectedVBox/StreamFrame" unique_id=1011937011]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SpeakingBorder" type="Panel" parent="SafeZone/Room/Content/ContentBox/SelectedPreview" unique_id=1011937078]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("16_speaking_border")
+
+[node name="GradientLayer" type="Control" parent="SafeZone/Room/Content" unique_id=1011937080]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BottomGradient" type="ColorRect" parent="SafeZone/Room/Content/GradientLayer" unique_id=1011937081]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bottom_gradient")
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -190.0
+offset_right = 18.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("18_bottom_gradient")
+opacity = 0.3
+
+[node name="ControlsOverlay" type="CenterContainer" parent="SafeZone/Room/Content" unique_id=1011937068]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="ControlsRow" type="HBoxContainer" parent="SafeZone/Room/Content/ControlsOverlay" unique_id=1011937071]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="MicButton" type="Button" parent="SafeZone/Room/Content/ControlsOverlay/ControlsRow" unique_id=1964413633]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Микрофон: вкл/выкл"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+toggle_mode = true
+icon = ExtResource("8_mic_shadow")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="SpeakerButton" type="Button" parent="SafeZone/Room/Content/ControlsOverlay/ControlsRow" unique_id=362050314]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Динамик: вкл/выкл"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+toggle_mode = true
+icon = ExtResource("9_sound_shadow")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="BroadcastButton" type="Button" parent="SafeZone/Room/Content/ControlsOverlay/ControlsRow" unique_id=2126711408]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Трансляция экрана"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+toggle_mode = true
+icon = ExtResource("10_broadcast_shadow")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ExitButton" type="Button" parent="SafeZone/Room/Content/ControlsOverlay/ControlsRow" unique_id=886513853]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Выйти из комнаты"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_flat")
+icon = ExtResource("11_exit_shadow")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ScreenStream" type="Node" parent="." unique_id=1011937049]
+script = ExtResource("3_stream")
+
+[node name="Capture" type="Node" parent="ScreenStream" unique_id=1011937050]
+script = ExtResource("4_capture")
+
+[node name="DesktopCaster" type="DesktopCaster" parent="ScreenStream/Capture" unique_id=1011937051]
+
+[node name="Encoder" type="Node" parent="ScreenStream" unique_id=1011937052]
+script = ExtResource("5_encoder")
+
+[node name="Decoder" type="Node" parent="ScreenStream" unique_id=1011937053]
+script = ExtResource("6_decoder")
+
+[node name="ThemeApplier" type="Node" parent="." unique_id=1011937054 node_paths=PackedStringArray("target")]
+script = ExtResource("7_theme_applier")
+dark_theme = ExtResource("2_theme_dark")
+light_theme = ExtResource("3_theme_light")
+target = NodePath("..")
+
+[node name="RemoteStreams" type="Node" parent="." unique_id=1011937075]
+script = ExtResource("13_remote_streams")
+
+[node name="HoverPanel" type="Control" parent="." unique_id=1011937076]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("14_hover_panel")
+
+[node name="SettingsPanel" type="Control" parent="." unique_id=1011937077]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("15_settings_panel")
+
+[node name="Attribution" type="Label" parent="." unique_id=1011937079]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -34.0
+offset_right = 420.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_type_variation = &"Caption"
+text = "Логотип: Flaticon.com"
+vertical_alignment = 1

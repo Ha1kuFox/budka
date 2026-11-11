@@ -1,0 +1,24 @@
+diff --git a/rust/src/backends/linux_pipewire.rs b/rust/src/backends/linux_pipewire.rs
+index 695fc66..215d11a 100644
+--- a/rust/src/backends/linux_pipewire.rs
++++ b/rust/src/backends/linux_pipewire.rs
+@@ -189,7 +189,6 @@ impl CaptureBackend for PipeWireCaptureBackend {
+                         }
+                     };
+                 }
+-
+                 pipewire::init();
+                 let mainloop =
+                     try_setup!(MainLoopRc::new(None), "Failed to create PipeWire mainloop");
+@@ -307,6 +306,11 @@ impl CaptureBackend for PipeWireCaptureBackend {
+                 let _ = startup_tx.send(WorkerStartup::Ready);
+ 
+                 mainloop.run();
++                drop(_listener);
++                drop(_receiver);
++                drop(stream);
++                drop(context);
++                drop(mainloop);
+                 unsafe { pipewire::deinit() };
+             })
+             .map_err(|e| format!("Failed to spawn PipeWire thread: {e}"))?;

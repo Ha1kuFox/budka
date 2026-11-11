@@ -1,0 +1,25 @@
+# Godot
+.godot/
+/android/
+
+# Exports and packaging
+/build/
+/dist/
+/export/
+*.pck
+*.zip
+
+# Local runtime files
+*.log
+*.tmp
+*.bak
+steam_appid.txt
+
+# Plugins
+addons/godotsteam
+addons/twovoip
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
